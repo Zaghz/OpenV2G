@@ -29,15 +29,26 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 
+# Variables
+STATIC_LIB = libopenv2g.a
+
 # All Target
-all: OpenV2G.exe
+all: openv2g	$(STATIC_LIB)
 
 # Tool invocations
-OpenV2G.exe: $(OBJS) $(USER_OBJS)
+openv2g: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MinGW C Linker'
-	gcc  -o "OpenV2G.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "openv2g" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
+	@echo ' '
+
+
+# Static Library Target
+$(STATIC_LIB): $(OBJS)
+	@echo 'Building static library: $@'
+	ar rcs $@ $(OBJS)
+	@echo 'Finished building static library: $@'
 	@echo ' '
 
 # Other Targets
